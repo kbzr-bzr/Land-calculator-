@@ -1,1 +1,158 @@
 # Land-calculator-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Land Calculator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f2f2f2;
+            padding: 25px 15px;
+        }
+
+        .calculator {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px #aaa;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .unit {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .unit button {
+            flex: 1;
+            padding: 12px;
+            font-size: 17px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .unit button.active {
+            background: #222;
+            color: white;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 7px 0;
+            font-size: 18px;
+            border: 1px solid #aaa;
+            border-radius: 8px;
+        }
+
+        .calculate {
+            width: 95%;
+            padding: 14px;
+            margin-top: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <h1>🌾 Land Calculator</h1>
+
+    <div class="unit">
+        <button id="feetBtn" class="active" onclick="selectUnit('feet')">
+            Feet
+        </button>
+
+        <button id="karamBtn" onclick="selectUnit('karam')">
+            Karam
+        </button>
+    </div>
+
+    <input type="number" id="A" placeholder="Enter A">
+    <input type="number" id="B" placeholder="Enter B">
+    <input type="number" id="C" placeholder="Enter C">
+    <input type="number" id="D" placeholder="Enter D">
+
+    <button class="calculate" onclick="calculate()">
+        Calculate
+    </button>
+
+    <div class="result">
+        <div>Marla = <b id="marla">0</b></div>
+        <div>Kanal = <b id="kanal">0</b></div>
+        <div>Kile = <b id="kile">0</b></div>
+    </div>
+
+</div>
+
+<script>
+
+let unit = "feet";
+
+function selectUnit(selectedUnit) {
+
+    unit = selectedUnit;
+
+    document.getElementById("feetBtn").classList.remove("active");
+    document.getElementById("karamBtn").classList.remove("active");
+
+    if (unit === "feet") {
+        document.getElementById("feetBtn").classList.add("active");
+    } else {
+        document.getElementById("karamBtn").classList.add("active");
+    }
+}
+
+function calculate() {
+
+    let A = Number(document.getElementById("A").value);
+    let B = Number(document.getElementById("B").value);
+    let C = Number(document.getElementById("C").value);
+    let D = Number(document.getElementById("D").value);
+
+    let marla;
+
+    if (unit === "feet") {
+
+        // Feet formula
+        marla = (((A + B) / 2) * ((C + D) / 2)) / 272.25;
+
+    } else {
+
+        // Karam formula
+        marla = (((A + B) / 2) * ((C + D) / 2)) / 9;
+    }
+
+    let kanal = marla / 20;
+    let kile = kanal / 8;
+
+    document.getElementById("marla").innerText = marla.toFixed(2);
+    document.getElementById("kanal").innerText = kanal.toFixed(2);
+    document.getElementById("kile").innerText = kile.toFixed(2);
+}
+
+</script>
+
+</body>
+</html>
